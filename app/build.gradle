@@ -9,6 +9,10 @@ android {
             storePassword 'android'
         }
     }
+    repositories {
+        mavenCentral()
+    }
+
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
     defaultConfig {
@@ -28,6 +32,7 @@ android {
 
         debug {
 
+            debuggable true
             applicationIdSuffix ".debug"
         }
     }
@@ -44,6 +49,13 @@ android {
             versionName "1.0_paid"
         }
     }
+
+    sourceSets {
+        paid {
+            manifest.srcFile 'src/paid/AndroidManifest.xml'
+            java.srcDirs = ['src/paid/java']
+        }
+    }
 }
 
 
@@ -51,16 +63,12 @@ dependencies {
     // Added for AdMob
     compile project(':androidlib')
     compile project(path: ':backend', configuration: 'android-endpoints')
-    freeCompile 'com.google.android.gms:play-services-ads:8.4.0'
-    //compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.google.android.gms:play-services:8.4.0'
-    compile 'com.google.android.gms:play-services-ads:8.4.0'
-    compile 'com.google.android.gms:play-services-analytics:8.4.0'
-    compile 'com.google.android.gms:play-services-auth:8.4.0'
-    compile 'com.google.android.gms:play-services-gcm:8.4.0'
-    compile 'com.android.support:multidex:1.0.1'
-    compile 'com.google.api-client:google-api-client-android:1.20.0'
+    compile 'com.google.android.gms:play-services-ads:9.0.2'
+    freeCompile 'com.google.android.gms:play-services-ads:9.0.2'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    testCompile 'junit:junit:4.12'
 }
+
 
 
 

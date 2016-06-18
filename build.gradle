@@ -12,17 +12,21 @@ buildscript {
 }
 
 
-task runAppEngine (dependsOn: [":backend:appengineRun", ":app:connectedAndroidTest", ":backend:appengineStop"]) {
-    evaluationDependsOn ":backend"
-
-    project(":backend") {
-        appengine {
-            daemon true
-        }
-    }
-
-    doLast {
-        println "All done!"
+allprojects {
+    repositories {
+        jcenter()
     }
 }
+
+task runAllTests (dependsOn: ":backend:appengineRun") {
+    project(":backend").afterEvaluate { backend ->
+        backend.extensions.appengine.daemon = true
+    }
+    doLast {
+        "app:connectedCheck"
+        print("Final Gradle task success...!!!")
+    }
+}
+
+runAllTests.finalizedBy ":backend:appengineStop"
 
